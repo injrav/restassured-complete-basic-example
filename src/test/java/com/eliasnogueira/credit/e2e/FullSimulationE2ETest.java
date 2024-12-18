@@ -29,7 +29,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-import static com.eliasnogueira.credit.data.changeless.TestSuiteTags.E2E;
+import static com.eliasnogueira.credit.data.changeless.TestSuiteTags.E2A;
 import static org.apache.http.HttpStatus.SC_NOT_FOUND;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -39,10 +39,23 @@ class FullSimulationE2ETest {
     private final SimulationsClient simulationsClient = new SimulationsClient();
 
     @Test
-    @Tag(E2E)
+    @Tag(E2A)
     @DisplayName("Should submit a successful simulation for a non-restricted CPF")
     void completeSimulation() {
         var notFound = restrictionsClient.queryRestrictionAndReturnNotFound();
+        System.out.println("E2E TESTING----------------------------------------");
+        assertThat(notFound.getStatusCode()).isEqualTo(SC_NOT_FOUND);
+
+        var successfulSimulation = simulationsClient.submitSuccessfulSimulation();
+        assertThat(successfulSimulation.getHeader("Location")).isNotEmpty();
+    }
+
+    @Test
+    @Tag(E2A)
+    @DisplayName("Should submit a successful simulation for a non-restricted CPF")
+    void completeSimulation2() {
+        var notFound = restrictionsClient.queryRestrictionAndReturnNotFound();
+        System.out.println("bindu E2E TESTING----------------------------------------");
         assertThat(notFound.getStatusCode()).isEqualTo(SC_NOT_FOUND);
 
         var successfulSimulation = simulationsClient.submitSuccessfulSimulation();

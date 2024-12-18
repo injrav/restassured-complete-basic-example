@@ -31,4 +31,5 @@ public final class TestSuiteTags {
     public static final String CONTRACT = "contract";
     public static final String FUNCTIONAL = "functional";
     public static final String E2E = "e2e";
+    public static final String E2A = "e2a";
 }
